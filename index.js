@@ -12,6 +12,9 @@ const eventManagerRoutes = require('./api/routes/EventManagerRoute')
 // Application created
 const app = express();
 
+// This package will jsonify the request body
+app.use(bodyParser.json());
+
 // Initial route created, route will hold callback function with few params i.e. request & response
 app.get("/", (req, res)=>{
   res.send("Hello, Its Working Fine").status(200);
@@ -23,11 +26,11 @@ app.use('/api/manager', eventManagerRoutes);
 // process.env.DATABASE_URL => will get mongodb url from .env file
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=>console.log("Database is connected"))
-.catch(()=>console.log("Something getting wrong"));
+.catch(()=>console.log("Something getting wrong while connecting database"));
 
 const port = process.env.PORT || 3000;
 
-// application will run on given port and print the status
+// Application will run on given port and print the status
 app.listen(port, () => {
   console.log("Server is running fine...");
 });
