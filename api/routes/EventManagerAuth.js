@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const EventManager = require("../models//EventManagerModel");
-const { ManagerRegistrationValidation } = require("../Validation");
+const EventManager = require("../models/EventManagerModel");
+const { ManagerRegistrationValidation, ManagerLoginValidation } = require("../Validation");
 
 router.post("/register", async (req, res) => {
   // Validate input data
@@ -32,4 +32,19 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post('/login', async (req, res)=>{
+  // Validate input data
+  const {error} = ManagerLoginValidation(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  // Check whether user is exist or not
+  const userExist = await EventManager.findOne({email: req.body.email});
+  if(!userExist) return res.status(404).send("Email not found");
+
+  // Check valid password
+  const validPass = await bcrypt.compare(req.body.password, userExist.password);
+  if(!validPass) return res.status(400).send("Invalid password");
+
+  res.status(200).send("Login successful")
+})
 module.exports = router;

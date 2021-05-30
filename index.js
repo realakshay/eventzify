@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Import Routes
-const eventManagerRoutes = require('./api/routes/EventManagerRoute')
+const eventManagerAuthRoutes = require('./api/routes/EventManagerAuth')
 
 // Application created
 const app = express();
@@ -21,7 +21,7 @@ app.get("/", (req, res)=>{
 })
 
 // Created parent path for specific routes
-app.use('/api/manager', eventManagerRoutes);
+app.use('/auth/manager', eventManagerAuthRoutes);
 
 // process.env.DATABASE_URL => will get mongodb url from .env file
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true})

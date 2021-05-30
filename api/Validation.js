@@ -10,4 +10,14 @@ const ManagerRegistrationValidation = (data) => {
 
   return Joi.validate(data, schema);
 };
+
+const ManagerLoginValidation = (data) => {
+  const schema = {
+    email: Joi.string().min(6).required().email(),
+    password: Joi.string().min(6).required(),
+  };
+
+  return Joi.validate(data, schema);
+};
 module.exports.ManagerRegistrationValidation = ManagerRegistrationValidation;
+module.exports.ManagerLoginValidation = ManagerLoginValidation;
