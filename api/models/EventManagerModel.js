@@ -14,7 +14,7 @@ const EventManagerSchema = mongoose.Schema({
   linkedinPageUrl: { type: String, required: false },
   twitterPageUrl: { type: String, required: false },
   youtubePageUrl: { type: String, required: false },
-  
+
   gstNumber: { type: Number, required: false },
   refNumber: { type: Number, required: false },
   businessStartDate: { type: Date, required: false },
@@ -24,6 +24,7 @@ const EventManagerSchema = mongoose.Schema({
   country: { type: String, required: false },
   pinCode: { type: Number, required: false },
   
+  ceremonies: {type: Array, required: false, default: []}
 });
 
 module.exports = mongoose.model("EventManager", EventManagerSchema);

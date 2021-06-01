@@ -31,6 +31,8 @@ const ManagerRegistrationValidation = (data) => {
     state: Joi.string().allow(""),
     country: Joi.string().allow(""),
     pinCode: Joi.string().allow(""),
+
+    ceremonies: Joi.array().allow("")
   }
 
   return Joi.validate(data, schema);

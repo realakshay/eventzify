@@ -45,6 +45,8 @@ router.post("/register", async (req, res) => {
     state: req.body.state || "",
     country: req.body.country || "",
     pinCode: req.body.pinCode || "",
+
+    ceremonies: req.body.ceremonies || []
   });
 
   try {

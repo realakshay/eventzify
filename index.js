@@ -8,6 +8,7 @@ dotenv.config();
 
 // Import Routes
 const eventManagerAuthRoutes = require('./api/routes/EventManagerAuth');
+const ceremonyRoutes = require('./api/routes/CeremonyRoute');
 const examplePostRoute = require('./api/routes/ExamplePost');
 
 // Application created
@@ -23,6 +24,7 @@ app.get("/", (req, res)=>{
 
 // Created parent path for specific routes
 app.use('/auth/manager', eventManagerAuthRoutes);
+app.use('/ceremonies', ceremonyRoutes);
 app.use('/example', examplePostRoute);
 
 // process.env.DATABASE_URL => will get mongodb url from .env file
