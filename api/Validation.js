@@ -22,7 +22,7 @@ const ManagerRegistrationValidation = (data) => {
     linkedinPageUrl: Joi.string().allow(""),
     twitterPageUrl: Joi.string().allow(""),
     youtubePageUrl: Joi.string().allow(""),
-    
+
     gstNumber: Joi.string().allow(""),
     refNumber: Joi.string().allow(""),
     businessStartDate: Joi.string().allow(""),
@@ -32,8 +32,8 @@ const ManagerRegistrationValidation = (data) => {
     country: Joi.string().allow(""),
     pinCode: Joi.string().allow(""),
 
-    ceremonies: Joi.array().allow("")
-  }
+    ceremonies: Joi.array().allow(""),
+  };
 
   return Joi.validate(data, schema);
 };
@@ -47,7 +47,7 @@ const ManagerLoginValidation = (data) => {
   return Joi.validate(data, schema);
 };
 
-const EventDetailValidation = (data) =>{
+const EventDetailValidation = (data) => {
   const schema = {
     companyId: Joi.string().min(3).allow(""),
     customerName: Joi.string().min(3).required(),
@@ -56,16 +56,16 @@ const EventDetailValidation = (data) =>{
     eventDate: Joi.string().min(1).required(),
     eventTime: Joi.string().min(1).required(),
     eventVenue: Joi.string().min(3).required(),
-  }
+  };
   return Joi.validate(data, schema);
-}
+};
 
-const CustomerRegistrationValidation = (data) =>{
+const CustomerRegistrationValidation = (data) => {
   const schema = {
-    customerName: Joi.string().min(3).required()
-  }
+    customerName: Joi.string().min(3).required(),
+  };
   return Joi.validate(data, schema);
-}
+};
 module.exports.ManagerRegistrationValidation = ManagerRegistrationValidation;
 module.exports.ManagerLoginValidation = ManagerLoginValidation;
 module.exports.EventDetailValidation = EventDetailValidation;
