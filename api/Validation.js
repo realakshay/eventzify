@@ -46,5 +46,19 @@ const ManagerLoginValidation = (data) => {
 
   return Joi.validate(data, schema);
 };
+
+const EventDetailValidation = (data) =>{
+  const schema = {
+    companyId: Joi.string().min(3).allow(""),
+    customerName: Joi.string().min(3).required(),
+    numberOfAttendees: Joi.number().min(1).required(),
+    selectedEvent: Joi.string().min(3).required(),
+    eventDate: Joi.string().min(1).required(),
+    eventTime: Joi.string().min(1).required(),
+    eventVenue: Joi.string().min(3).required(),
+  }
+  return Joi.validate(data, schema);
+}
 module.exports.ManagerRegistrationValidation = ManagerRegistrationValidation;
 module.exports.ManagerLoginValidation = ManagerLoginValidation;
+module.exports.EventDetailValidation = EventDetailValidation;
