@@ -4,6 +4,7 @@ const verify = require("../VerifyToken");
 const EventDetail = require("../models/EventDetailModel");
 const { EventDetailValidation } = require("../Validation");
 
+// Create new event
 router.post("/add", verify, async (req, res) => {
   const { error } = EventDetailValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -26,4 +27,13 @@ router.post("/add", verify, async (req, res) => {
   }
 });
 
+//Getting all events
+router.get("/all", verify, async (req, res) => {
+  try {
+    const allEvents = await EventDetail.find({});
+    res.status(201).json(allEvents);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
 module.exports = router;
