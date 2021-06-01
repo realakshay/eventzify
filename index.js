@@ -11,6 +11,7 @@ const eventManagerAuthRoutes = require('./api/routes/EventManagerAuth');
 const ceremonyRoutes = require('./api/routes/CeremonyRoute');
 const examplePostRoute = require('./api/routes/ExamplePost');
 const eventDetailRoute = require('./api/routes/EventDetailRoute');
+const customerRoute = require('./api/routes/CustomerRoute');
 
 // Application created
 const app = express();
@@ -28,6 +29,7 @@ app.use('/auth/manager', eventManagerAuthRoutes);
 app.use('/ceremonies', ceremonyRoutes);
 app.use('/example', examplePostRoute);
 app.use('/event', eventDetailRoute);
+app.use('/customer', customerRoute);
 
 // process.env.DATABASE_URL => will get mongodb url from .env file
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true})

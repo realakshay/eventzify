@@ -59,6 +59,14 @@ const EventDetailValidation = (data) =>{
   }
   return Joi.validate(data, schema);
 }
+
+const CustomerRegistrationValidation = (data) =>{
+  const schema = {
+    customerName: Joi.string().min(3).required()
+  }
+  return Joi.validate(data, schema);
+}
 module.exports.ManagerRegistrationValidation = ManagerRegistrationValidation;
 module.exports.ManagerLoginValidation = ManagerLoginValidation;
 module.exports.EventDetailValidation = EventDetailValidation;
+module.exports.CustomerRegistrationValidation = CustomerRegistrationValidation;
