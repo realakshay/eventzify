@@ -7,11 +7,11 @@ router.get("/", verify, async (req, res) => {
   try {
     const eventManager = await EventManager.findOne(
       { _id: req.user._id },
-      { ceremonies: 1 }
+      { ceremonies: 1 }   // Sending only ceremonies
     );
     res.send(eventManager);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({message:err});
   }
 });
 
@@ -24,12 +24,12 @@ router.put("/add", verify, async (req, res) => {
     let checkExist = eventManager.ceremonies.some(function (ceremony) {
       return ceremony.name == req.body.name;
     });
-    if (checkExist) return res.send("ceremony already exist");
+    if (checkExist) return res.send({message:"ceremony already exist"});
     eventManager.ceremonies.push(req.body);
     const result = await eventManager.save();
-    res.status(200).send("ceremony added");
+    res.status(200).send({message:"ceremony added"});
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({message:err});
   }
 });
 

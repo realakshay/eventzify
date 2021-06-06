@@ -5,7 +5,7 @@ const EventDetailSchema = mongoose.Schema({
     customerName: { type: String, required: true },
     numberOfAttendees: {type: Number, required: true},
     selectedEvent: { type: String, required: true },
-    eventDate: {type: Date, required: true},
+    eventDate: {type: String, required: true},
     eventTime: {type: String, required: true},
     eventVenue: {type: String, required: true},
 })

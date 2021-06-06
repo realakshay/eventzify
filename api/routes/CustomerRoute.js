@@ -6,15 +6,15 @@ const verify = require("../VerifyToken");
 
 router.post("/add", async (req, res) => {
   const { error } = CustomerRegistrationValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({message:error.details[0].message});
   const customer = new Customer({
     customerName: req.body.customerName,
   });
   try {
     const savedCustomer = await customer.save();
-    res.status(201).send({ customer: savedCustomer._id });
+    res.status(201).send({ message: "customer added", customer: savedCustomer._id });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({message:err});
   }
 });
 
@@ -23,7 +23,7 @@ router.get("/all", verify, async (req, res) => {
     const customers = await Customer.find({});
     res.status(200).json(customers);
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({message:err});
   }
 });
 

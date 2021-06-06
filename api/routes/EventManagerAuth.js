@@ -8,11 +8,11 @@ const { ManagerRegistrationValidation, ManagerLoginValidation } = require("../Va
 router.post("/register", async (req, res) => {
   // Validate input data
   const { error } = ManagerRegistrationValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({message:error.details[0].message});
 
   // Check whether user with email is already exist or not
   const emailExist = await EventManager.findOne({ email: req.body.email });
-  if (emailExist) return res.status(409).send("Email already exists");
+  if (emailExist) return res.status(409).send({message:"email already exists"});
 
   // Encrypt the password
   const salt = await bcrypt.genSalt(10);
@@ -51,28 +51,28 @@ router.post("/register", async (req, res) => {
 
   try {
     const savedUser = await eventManager.save();
-    res.status(201).send({ user: savedUser._id });
+    res.status(201).send({message:"registration successful", user: savedUser._id });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({message:err});
   }
 });
 
 router.post('/login', async (req, res)=>{
   // Validate input data
   const {error} = ManagerLoginValidation(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  if (error) return res.status(400).send({message:error.details[0].message});
 
   // Check whether user is exist or not
   const userExist = await EventManager.findOne({email: req.body.email});
-  if(!userExist) return res.status(404).send("Email not found");
+  if(!userExist) return res.status(404).send({message:"email not found"});
 
   // Check valid password
   const validPass = await bcrypt.compare(req.body.password, userExist.password);
-  if(!validPass) return res.status(400).send("Invalid password");
+  if(!validPass) return res.status(400).send({message:"invalid password"});
 
   // Create jwt token
   const token = jwt.sign({_id: userExist._id}, process.env.JWT_SECRET_TOKEN)
-  res.header('auth-token', token).send({"auth-token":token});
+  res.header('auth-token', token).send({message:"login success","auth-token":token});
 
 })
 module.exports = router;
