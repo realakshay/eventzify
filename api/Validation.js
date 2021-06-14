@@ -66,7 +66,23 @@ const CustomerRegistrationValidation = (data) => {
   };
   return Joi.validate(data, schema);
 };
+
+const ProductInsertValidation = (data) =>{
+  const schema = {
+    companyId: Joi.string().min(3).allow(""),
+    productName: Joi.string().min(1).required(),
+    productCode: Joi.string().min(1).required(),
+    productImgUrl: Joi.string().allow(""),
+    quantity: Joi.number().min(1).required(),
+    measuredIn: Joi.string().min(1).required(),
+    productCategory: Joi.string().min(1).required(),
+    priceRange: Joi.object().allow("")
+  }
+  return Joi.validate(data, schema);
+}
+
 module.exports.ManagerRegistrationValidation = ManagerRegistrationValidation;
 module.exports.ManagerLoginValidation = ManagerLoginValidation;
 module.exports.EventDetailValidation = EventDetailValidation;
 module.exports.CustomerRegistrationValidation = CustomerRegistrationValidation;
+module.exports.ProductInsertValidation = ProductInsertValidation;
