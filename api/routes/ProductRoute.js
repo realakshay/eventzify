@@ -4,7 +4,6 @@ const verify = require("../VerifyToken");
 const Product = require("../models/ProductModel");
 const { ProductInsertValidation } = require("../Validation");
 
-
 // /product/insert :POST
 router.post("/insert", verify, async (req, res) => {
   const { error } = ProductInsertValidation(req.body);
@@ -34,7 +33,7 @@ router.post("/insert", verify, async (req, res) => {
 // /product/myproducts :GET
 router.get("/myproducts", verify, async (req, res) => {
   try {
-    const products = await Product.find({companyId: req.user._id});
+    const products = await Product.find({ companyId: req.user._id });
     res.status(201).json(products);
   } catch (err) {
     res.status(400).send({ message: err });
@@ -51,21 +50,22 @@ router.get("/all", async (req, res) => {
   }
 });
 
-router.put("/update", verify, async(req, res) =>{
-  if(!req.body.productId) return res.send(400).send({"message": "couldnt found product id"})
-  try{
-    const product = await Product.findById(req.body.productId)
-    if(req.body.quantity){
-      product.quantity = req.body.quantity
+router.put("/update", verify, async (req, res) => {
+  if (!req.body.productId)
+    return res.send(400).send({ message: "couldnt found product id" });
+  try {
+    const product = await Product.findById(req.body.productId);
+    if (req.body.quantity) {
+      product.quantity = req.body.quantity;
     }
-    if(req.body.priceRange){
-      product.priceRange = req.body.priceRange
+    if (req.body.priceRange) {
+      product.priceRange = req.body.priceRange;
     }
-    await product.save()
+    await product.save();
     res.status(200).json({ message: "updated.." });
-  }catch(err){
+  } catch (err) {
     res.status(400).send({ message: err });
   }
-})
+});
 
 module.exports = router;

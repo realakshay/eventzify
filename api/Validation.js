@@ -67,7 +67,7 @@ const CustomerRegistrationValidation = (data) => {
   return Joi.validate(data, schema);
 };
 
-const ProductInsertValidation = (data) =>{
+const ProductInsertValidation = (data) => {
   const schema = {
     companyId: Joi.string().min(3).allow(""),
     productName: Joi.string().min(1).required(),
@@ -76,13 +76,23 @@ const ProductInsertValidation = (data) =>{
     quantity: Joi.number().min(1).required(),
     measuredIn: Joi.string().min(1).required(),
     productCategory: Joi.string().min(1).required(),
-    priceRange: Joi.object().allow("")
-  }
+    priceRange: Joi.object().allow("").default([]),
+  };
   return Joi.validate(data, schema);
-}
+};
+
+const ItemInsertValidation = (data) => {
+  const schema = {
+    companyId: Joi.string().min(3).allow(""),
+    customerName: Joi.string().allow(""),
+    items: Joi.array().allow("").default([]),
+  };
+  return Joi.validate(data, schema);
+};
 
 module.exports.ManagerRegistrationValidation = ManagerRegistrationValidation;
 module.exports.ManagerLoginValidation = ManagerLoginValidation;
 module.exports.EventDetailValidation = EventDetailValidation;
 module.exports.CustomerRegistrationValidation = CustomerRegistrationValidation;
 module.exports.ProductInsertValidation = ProductInsertValidation;
+module.exports.ItemInsertValidation = ItemInsertValidation;
