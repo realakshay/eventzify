@@ -55,14 +55,39 @@ router.put("/update", verify, async (req, res) => {
     return res.send(400).send({ message: "couldnt found product id" });
   try {
     const product = await Product.findById(req.body.productId);
-    if (req.body.quantity) {
-      product.quantity = req.body.quantity;
-    }
-    if (req.body.priceRange) {
-      product.priceRange = req.body.priceRange;
-    }
+    if (req.body.productName) product.productName = req.body.productName;
+    if (req.body.productCode) product.productCode = req.body.productCode;
+    if (req.body.measuredIn) product.measuredIn = req.body.measuredIn;
+    if (req.body.productImgUrl) product.productImgUrl = req.body.productImgUrl;
+    if (req.body.productCategory)
+      product.productCategory = req.body.productCategory;
+    if (req.body.quantity) product.quantity = req.body.quantity;
+    if (req.body.priceRange) product.priceRange = req.body.priceRange;
+
     await product.save();
     res.status(200).json({ message: "updated.." });
+  } catch (err) {
+    res.status(400).send({ message: err });
+  }
+});
+
+router.delete("/remove", verify, async (req, res) => {
+  if (!req.body.productId)
+    return res
+      .send(400)
+      .send({
+        message: "to perform this request you need to send productId in body",
+      });
+  try {
+    const product = await Product.findById(req.body.productId);
+    if (product) {
+      const result = await Product.findByIdAndDelete(req.body.productId);
+      res.status(200).send({ message: "product removed" });
+    } else {
+      res
+        .status(404)
+        .send({ message: "product not found, please check product id" });
+    }
   } catch (err) {
     res.status(400).send({ message: err });
   }

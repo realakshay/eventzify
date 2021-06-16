@@ -75,8 +75,8 @@ const ProductInsertValidation = (data) => {
     productImgUrl: Joi.string().allow(""),
     quantity: Joi.number().min(1).required(),
     measuredIn: Joi.string().min(1).required(),
-    productCategory: Joi.string().min(1).required(),
-    priceRange: Joi.object().allow("").default([]),
+    productCategory: Joi.array().allow("").default([]),
+    priceRange: Joi.object().allow("").default({}),
   };
   return Joi.validate(data, schema);
 };
