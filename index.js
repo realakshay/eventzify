@@ -1,20 +1,20 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const  bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
 // Configure to get environment variables
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 // Import Routes
-const eventManagerAuthRoutes = require('./api/routes/EventManagerAuth');
-const ceremonyRoutes = require('./api/routes/CeremonyRoute');
-const examplePostRoute = require('./api/routes/ExamplePost');
-const eventDetailRoute = require('./api/routes/EventDetailRoute');
-const customerRoute = require('./api/routes/CustomerRoute');
-const productRoute = require('./api/routes/ProductRoute');
-const itemRoute = require('./api/routes/ItemRoute');
-const eventManager = require('./api/routes/EventManager');
+const eventManagerAuthRoutes = require("./api/routes/EventManagerAuth");
+const ceremonyRoutes = require("./api/routes/CeremonyRoute");
+const examplePostRoute = require("./api/routes/ExamplePost");
+const eventDetailRoute = require("./api/routes/EventDetailRoute");
+const customerRoute = require("./api/routes/CustomerRoute");
+const productRoute = require("./api/routes/ProductRoute");
+const itemRoute = require("./api/routes/ItemRoute");
+const eventManager = require("./api/routes/EventManager");
 
 // Application created
 const app = express();
@@ -23,24 +23,30 @@ const app = express();
 app.use(bodyParser.json());
 
 // Initial route created, route will hold callback function with few params i.e. request & response
-app.get("/", (req, res)=>{
+app.get("/", (req, res) => {
   res.send("Hello, Its Working Fine").status(200);
-})
+});
 
 // Created parent path for specific routes
-app.use('/auth/manager', eventManagerAuthRoutes);
-app.use('/ceremonies', ceremonyRoutes);
-app.use('/example', examplePostRoute);
-app.use('/event', eventDetailRoute);
-app.use('/customer', customerRoute);
-app.use('/product', productRoute);
-app.use('/item', itemRoute);
-app.use('/manager', eventManager);
+app.use("/auth/manager", eventManagerAuthRoutes);
+app.use("/ceremonies", ceremonyRoutes);
+app.use("/example", examplePostRoute);
+app.use("/event", eventDetailRoute);
+app.use("/customer", customerRoute);
+app.use("/product", productRoute);
+app.use("/item", itemRoute);
+app.use("/manager", eventManager);
 
 // process.env.DATABASE_URL => will get mongodb url from .env file
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true})
-.then(()=>console.log("Database is connected"))
-.catch(()=>console.log("Something getting wrong while connecting database"));
+mongoose
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Database is connected"))
+  .catch(() =>
+    console.log("Something getting wrong while connecting database")
+  );
 
 const port = process.env.PORT || 3000;
 
