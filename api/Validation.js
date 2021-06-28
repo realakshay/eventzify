@@ -62,7 +62,15 @@ const EventDetailValidation = (data) => {
 
 const CustomerRegistrationValidation = (data) => {
   const schema = {
-    customerName: Joi.string().min(3).required(),
+    firstName: Joi.string().min(3).required(),
+    lastName: Joi.string().min(3).required(),
+    email: Joi.string().min(6).required().email(),
+    phoneNumber: Joi.string().min(6).required(),
+    addressLine1:  Joi.string().min(1).required(),
+    addressLine2:  Joi.string().min(1).required(),
+    city: Joi.string().allow(""),
+    state: Joi.string().allow(""),
+    country: Joi.string().allow(""),
   };
   return Joi.validate(data, schema);
 };
