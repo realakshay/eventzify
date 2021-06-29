@@ -98,9 +98,41 @@ const ItemInsertValidation = (data) => {
   return Joi.validate(data, schema);
 };
 
+const OrderValidation = (data) => {
+  const schema = {
+    customerName: Joi.string().min(3).required(),
+    numberOfAttendees: Joi.number().min(1).required(),
+    selectedEvent: Joi.string().min(3).required(),
+    eventDate: Joi.string().min(1).required(),
+    eventTime: Joi.string().min(1).required(),
+    eventVenue: Joi.string().min(3).required(),
+    // ceremoneyName: Joi.string().min(3).required(),
+
+    subEvents: Joi.array().allow("").default([]),
+    starterData: Joi.array().allow("").default([]),
+    saladData: Joi.array().allow("").default([]),
+    soupData: Joi.array().allow("").default([]),
+    dessertData: Joi.array().allow("").default([]),
+    mainCourseData: Joi.array().allow("").default([]),
+
+    soupCount: Joi.number().allow("").default(0),
+    saladCount: Joi.number().allow("").default(0),
+    starterCount: Joi.number().allow("").default(0),
+    mainCourseCount: Joi.number().allow("").default(0),
+    dessertCount: Joi.number().allow("").default(0),
+
+    totalPrice: Joi.number().min(1).required(),
+
+    title: Joi.string().allow(""),
+    messageText: Joi.string().allow(""),
+  };
+  return Joi.validate(data, schema);
+};
+
 module.exports.ManagerRegistrationValidation = ManagerRegistrationValidation;
 module.exports.ManagerLoginValidation = ManagerLoginValidation;
 module.exports.EventDetailValidation = EventDetailValidation;
 module.exports.CustomerRegistrationValidation = CustomerRegistrationValidation;
 module.exports.ProductInsertValidation = ProductInsertValidation;
 module.exports.ItemInsertValidation = ItemInsertValidation;
+module.exports.OrderValidation = OrderValidation;
