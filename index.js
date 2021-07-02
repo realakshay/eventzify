@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 // Configure to get environment variables
 const dotenv = require("dotenv");
@@ -16,12 +17,14 @@ const productRoute = require("./api/routes/ProductRoute");
 const itemRoute = require("./api/routes/ItemRoute");
 const eventManagerRoute = require("./api/routes/EventManager");
 const orderRoute = require("./api/routes/OrderRoute");
+const tempOrderRoute = require("./api/routes/TempOrderRoute");
 
 // Application created
 const app = express();
 
 // This package will jsonify the request body
 app.use(bodyParser.json());
+app.use(cors())
 
 // Initial route created, route will hold callback function with few params i.e. request & response
 app.get("/", (req, res) => {
@@ -38,6 +41,7 @@ app.use("/product", productRoute);
 app.use("/item", itemRoute);
 app.use("/manager", eventManagerRoute);
 app.use("/order", orderRoute);
+app.use("/preview", tempOrderRoute);
 
 // process.env.DATABASE_URL => will get mongodb url from .env file
 mongoose

@@ -96,7 +96,7 @@ router.put("/update", verify, async (req, res) => {
     if (req.body.messageText) order.messageText = req.body.messageText;
 
     await order.save();
-    res.status(200).send({ message: "order updated" });
+    res.status(200).send({ message: req.body.customerName ? "Details updated except customer name" : "order updated"});
   } catch (err) {
     res.status(400).send({ message: err });
   }
