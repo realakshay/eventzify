@@ -93,4 +93,20 @@ router.get("/:previewId", async (req, res) => {
   }
 });
 
+router.delete("/remove/:previewId", async (req, res) => {
+  if (req.params.previewId) {
+    try {
+      const data = await TempOrder.findOne({ previewId: req.params.previewId });
+      if (data) {
+        const result = await TempOrder.findByIdAndDelete(data._id);
+        res.status(200).send({ message: "deleted..!" });
+      } else {
+        res.status(404).send({ message: "not found for delete" });
+      }
+    } catch (err) {
+      res.status(400).send({ message: err });
+    }
+  }
+});
+
 module.exports = router;
