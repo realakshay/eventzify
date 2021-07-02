@@ -59,4 +59,13 @@ router.put("/update", verify, async (req, res) => {
   }
 });
 
+router.get("/all", verify, async (req, res) => {
+  try {
+    const managers = await EventManager.find();
+    res.status(200).json(managers);
+  } catch (err) {
+    res.status(400).send({ message: err });
+  }
+});
+
 module.exports = router;

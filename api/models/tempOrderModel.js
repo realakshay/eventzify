@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const TempOrderModel = mongoose.Schema({
-    previewId: { type: String, required: true },
+  previewId: { type: String, required: true },
   customerName: { type: String, required: false },
   numberOfAttendees: { type: Number, required: false },
   selectedEvent: { type: String, required: false },

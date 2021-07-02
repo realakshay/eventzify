@@ -134,7 +134,7 @@ const TempOrderValidation = (data) => {
     previewId: Joi.string().min(3).required(),
     customerName: Joi.string().allow(""),
     numberOfAttendees: Joi.number().allow(""),
-    selectedEvent:Joi.string().allow(""),
+    selectedEvent: Joi.string().allow(""),
     eventDate: Joi.string().allow(""),
     eventTime: Joi.string().allow(""),
     eventVenue: Joi.string().allow(""),

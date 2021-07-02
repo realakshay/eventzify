@@ -24,7 +24,7 @@ const app = express();
 
 // This package will jsonify the request body
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 // Initial route created, route will hold callback function with few params i.e. request & response
 app.get("/", (req, res) => {

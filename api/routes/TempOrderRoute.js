@@ -77,19 +77,20 @@ router.put("/insert", verify, async (req, res) => {
   }
 });
 
-router.get("/:previewId", async(req,res) =>{
-    if(req.params.previewId){
-        try{
-            const previewData = await TempOrder.findOne({previewId: req.params.previewId})
-            if(previewData)
-                res.status(200).json(previewData)
-            res.status(400).send({message: "no preview order found for this ID"})
-        }catch(err){
-            res.status(400).send({message: err})
-        }
-    }else{
-        res.status(400).send({message: "now preview id found in url"})
+router.get("/:previewId", async (req, res) => {
+  if (req.params.previewId) {
+    try {
+      const previewData = await TempOrder.findOne({
+        previewId: req.params.previewId,
+      });
+      if (previewData) res.status(200).json(previewData);
+      res.status(400).send({ message: "no preview order found for this ID" });
+    } catch (err) {
+      res.status(400).send({ message: err });
     }
-})
+  } else {
+    res.status(400).send({ message: "now preview id found in url" });
+  }
+});
 
 module.exports = router;
